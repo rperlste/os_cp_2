@@ -10,6 +10,4 @@
 // Headers for CppUnitTest
 #include "CppUnitTest.h"
 
-// TODO: reference additional headers your program requires here
-#include "virtual_pcb.h"
-#include "virtual_cpu.h"
+// Project headers

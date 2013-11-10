@@ -18,14 +18,9 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="input100.dat">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="input10.dat">
-      <Filter>Resource Files</Filter>
-    </None>
+    <ClCompile Include="virtual_cpu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="scheduling_strategy.h">
@@ -43,5 +38,16 @@
     <ClInclude Include="virtual_pcb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="simulation_macros.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="input\input10.dat">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="input\input100.dat">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

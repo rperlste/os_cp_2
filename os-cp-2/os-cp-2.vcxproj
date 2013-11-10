@@ -65,17 +65,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="virtual_cpu.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="input10.dat" />
-    <None Include="input100.dat" />
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="simulation_macros.h" />
     <ClInclude Include="schedule_simulator.h" />
     <ClInclude Include="schedule_factory.h" />
     <ClInclude Include="scheduling_strategy.h" />
     <ClInclude Include="virtual_cpu.h" />
     <ClInclude Include="virtual_pcb.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="input\input10.dat" />
+    <None Include="input\input100.dat" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -4,14 +4,14 @@
 enum ScheduleType
 {
   FCFS = 0,
-  RR = 1,
-  SRTF = 2
+  SRTF = 1,
+  RR = 2
 };
 
 class ScheduleFactory
 {
 public:
-  static
+
 
 private:
 };
