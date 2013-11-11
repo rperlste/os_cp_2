@@ -15,7 +15,7 @@ namespace UnitTest
 		TEST_METHOD( construct_VirtualPCB )
 		{
       PROCESS_ID pid = 1;
-      BURST_TIME burst_time = 2;
+      SYSTEM_TIME burst_time = 2;
       VirtualPCB pcb( pid, burst_time );
       Assert::AreEqual( pid, pcb.pid );
       Assert::AreEqual( burst_time, pcb.burst_time );
@@ -28,7 +28,7 @@ namespace UnitTest
     
     TEST_METHOD( construction ) {
       PROCESS_ID pid = 0;
-      BURST_TIME burst_time = 0;
+      SYSTEM_TIME burst_time = 0;
       SYSTEM_TIME system_time = 0;
 
       VirtualCPU cpu;
@@ -37,7 +37,7 @@ namespace UnitTest
       Assert::AreEqual( system_time, cpu.system_time );
 
       pid = 5;
-      burst_time = 8;
+      burst_time = 800;
       system_time = 0;
 
       VirtualPCB pcb1( pid, burst_time );
@@ -47,8 +47,8 @@ namespace UnitTest
       Assert::AreEqual( system_time, cpu3.system_time );
 
       pid = 5;
-      burst_time = 8;
-      system_time = 5;
+      burst_time = 800;
+      system_time = 500;
 
       VirtualPCB pcb2( pid, burst_time );
       VirtualCPU cpu4( pcb2, system_time );
@@ -59,7 +59,7 @@ namespace UnitTest
 
     TEST_METHOD( get_PCB ) {
       PROCESS_ID pid = 1;
-      BURST_TIME burst_time = 10;
+      SYSTEM_TIME burst_time = 1000;
 
       VirtualPCB pcb( pid, burst_time );
       VirtualCPU cpu( pcb );
@@ -69,7 +69,7 @@ namespace UnitTest
 
     TEST_METHOD( load_process ) {
       PROCESS_ID pid = 1;
-      BURST_TIME burst_time = 10;
+      SYSTEM_TIME burst_time = 1000;
 
       VirtualPCB pcb( pid, burst_time );
       VirtualCPU cpu;
@@ -79,7 +79,7 @@ namespace UnitTest
 
 
       pid = 2;
-      burst_time = 5;
+      burst_time = 500;
 
       VirtualPCB pcb2( pid, burst_time );
       VirtualPCB pcb3 = cpu.load_process( pcb2 );
@@ -90,17 +90,40 @@ namespace UnitTest
     TEST_METHOD( increment_system_clock ) {
       VirtualCPU cpu;
       SYSTEM_TIME t = cpu.increment_system_clock();
-      Assert::AreEqual( (SYSTEM_TIME) 1, t );
-      t = cpu.increment_system_clock( 4 );
-      Assert::AreEqual( (SYSTEM_TIME) 5, t );
+      Assert::AreEqual( (SYSTEM_TIME) 100, t );
+      t = cpu.increment_system_clock( 400 );
+      Assert::AreEqual( (SYSTEM_TIME) 500, t );
     }
 
     TEST_METHOD( execute_process ) {
       PROCESS_ID pid = 1;
-      BURST_TIME burst_time = 10;
+      SYSTEM_TIME burst_time = 1000;
 
       VirtualPCB pcb( pid, burst_time );
       VirtualCPU cpu;
+      cpu.load_process( pcb );
+
+      // Execute for 1 ms
+      SYSTEM_TIME duration = cpu.execute_process();
+      Assert::AreEqual( (SYSTEM_TIME) 100, cpu.system_time );
+      Assert::AreEqual( (SYSTEM_TIME) 100, duration );
+      Assert::AreEqual( burst_time - 100, cpu.burst_time );
+
+      // Execute for 5 more ms
+      duration = cpu.execute_process( 500 );
+      Assert::AreEqual( (SYSTEM_TIME) 600, cpu.system_time );
+      Assert::AreEqual( (SYSTEM_TIME) 500, duration );
+      Assert::AreEqual( burst_time - 600, cpu.burst_time );
+
+      // Execute for 5 more ms, should have left over CPU time remaining.
+      duration = cpu.execute_process( 500 );
+      Assert::AreEqual( (SYSTEM_TIME) 1000, cpu.system_time );
+      Assert::AreEqual( (SYSTEM_TIME) 400, duration );
+      Assert::AreEqual( burst_time - 1000, cpu.burst_time );
+    }
+
+    TEST_METHOD( execute_process_with_context_switching ) {
+
     }
 
   };
