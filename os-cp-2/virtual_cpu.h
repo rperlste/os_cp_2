@@ -7,22 +7,22 @@
 class VirtualCPU
 {
 public:
-  SYSTEM_TIME system_time;
-  PROCESS_ID pid;
-  SYSTEM_TIME burst_time;
+  SYSTEM_TIME   system_time;
+  PROCESS_ID    pid;
+  SYSTEM_TIME   burst_time;
 
   VirtualCPU();
   VirtualCPU( const VirtualPCB& pcb, SYSTEM_TIME system_time = 0 );
   virtual ~VirtualCPU() {}
 
 
-  VirtualPCB get_PCB();
+  VirtualPCB    get_PCB();
   // Returns PCB of last process
-  VirtualPCB load_process( const VirtualPCB& pcb );
+  VirtualPCB    load_process( const VirtualPCB& pcb );
   // Returns duration process executes for
-  SYSTEM_TIME execute_process( SYSTEM_TIME duration = 100 );
+  SYSTEM_TIME   execute_process( SYSTEM_TIME duration = MILLISECOND );
   // Returns current system time
-  SYSTEM_TIME increment_system_clock( SYSTEM_TIME duration = 100 );
+  SYSTEM_TIME   increment_system_clock( SYSTEM_TIME duration = MILLISECOND );
 
 };
 

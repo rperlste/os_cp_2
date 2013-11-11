@@ -68,6 +68,9 @@
     <ClCompile Include="virtual_cpu.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="list\list.h" />
+    <ClInclude Include="list\node_iterator.h" />
+    <ClInclude Include="process_arrival_simulator.h" />
     <ClInclude Include="simulation_macros.h" />
     <ClInclude Include="schedule_simulator.h" />
     <ClInclude Include="schedule_factory.h" />
@@ -78,6 +81,8 @@
   <ItemGroup>
     <None Include="input\input10.dat" />
     <None Include="input\input100.dat" />
+    <None Include="list\list.tem" />
+    <None Include="list\node_iterator.tem" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

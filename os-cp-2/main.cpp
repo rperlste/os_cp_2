@@ -5,11 +5,17 @@ Class:  Operating Systems, Fall 2013
 Assign: Lab 2 - CPU scheduling algorithm simulator
 */
 
-#include "virtual_cpu.h"
 #include <iostream>
+#include "schedule_simulator.h"
 
-int main() {
-
-  bool run = true;
+int main( unsigned argc, const char* argv ) {
+  if( argc != 2 && argc != 3 ) {
+    std::cerr << "\nERROR: Invalid argument count.";
+    return 1;
+  }
+  
+  ScheduleSimulator simulator( argv );
+  simulator.run_algorithm();
+  
   return 0;
 }

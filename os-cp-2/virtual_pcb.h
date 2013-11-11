@@ -6,8 +6,8 @@
 class VirtualPCB
 {
 public:
-  PROCESS_ID pid;
-  SYSTEM_TIME burst_time;
+  PROCESS_ID    pid;
+  SYSTEM_TIME   burst_time;
 
   VirtualPCB( PROCESS_ID pid, SYSTEM_TIME burst_time ) :pid( pid ), burst_time( burst_time ) {};
 

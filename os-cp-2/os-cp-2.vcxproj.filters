@@ -13,13 +13,19 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="data_structure">
+      <UniqueIdentifier>{ba3529a0-32d4-4b9a-b457-fa1ef216d5f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="data_structure_iteratable">
+      <UniqueIdentifier>{d1c2bec4-03d5-42f1-961f-8250a8c2608f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="virtual_cpu.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>data_structure</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -32,14 +38,23 @@
     <ClInclude Include="schedule_simulator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="virtual_cpu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="virtual_pcb.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="simulation_macros.h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="list\node_iterator.h">
+      <Filter>data_structure_iteratable</Filter>
+    </ClInclude>
+    <ClInclude Include="list\list.h">
+      <Filter>data_structure_iteratable</Filter>
+    </ClInclude>
+    <ClInclude Include="virtual_pcb.h">
+      <Filter>data_structure</Filter>
+    </ClInclude>
+    <ClInclude Include="virtual_cpu.h">
+      <Filter>data_structure</Filter>
+    </ClInclude>
+    <ClInclude Include="process_arrival_simulator.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -48,6 +63,12 @@
     </None>
     <None Include="input\input100.dat">
       <Filter>Resource Files</Filter>
+    </None>
+    <None Include="list\list.tem">
+      <Filter>data_structure_iteratable</Filter>
+    </None>
+    <None Include="list\node_iterator.tem">
+      <Filter>data_structure_iteratable</Filter>
     </None>
   </ItemGroup>
 </Project>
