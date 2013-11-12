@@ -26,12 +26,17 @@ VirtualPCB VirtualCPU::get_PCB() {
   return VirtualPCB( pid, burst_time );
 }
 
+// TODO this is broken for SRTF
 SYSTEM_TIME VirtualCPU::execute_process( SYSTEM_TIME duration ) {
-  SYSTEM_TIME remaining_duration = (duration >= burst_time) ? duration - burst_time : 0;
-  SYSTEM_TIME duration_executed = duration - remaining_duration;
-
-  burst_time -= duration_executed;
-  increment_system_clock( duration_executed );
+  SYSTEM_TIME remaining_duration = 
+    (duration >= burst_time) ? duration - burst_time : 0;
+  SYSTEM_TIME duration_executed = 
+    (duration == 0) ? duration - remaining_duration : burst_time;
+  SYSTEM_TIME current_duration = 0;
+  while( current_duration < duration_executed ){
+    burst_time -= CPU_TICK;
+    increment_system_clock( CPU_TICK );
+  }
 
   return duration_executed;
 }

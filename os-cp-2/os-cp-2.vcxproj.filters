@@ -19,6 +19,9 @@
     <Filter Include="data_structure_iteratable">
       <UniqueIdentifier>{d1c2bec4-03d5-42f1-961f-8250a8c2608f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="algorithms">
+      <UniqueIdentifier>{8176af0c-e835-478d-8e90-1c328e233598}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -27,11 +30,20 @@
     <ClCompile Include="virtual_cpu.cpp">
       <Filter>data_structure</Filter>
     </ClCompile>
+    <ClCompile Include="schedule\fcfs.cpp">
+      <Filter>algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="schedule\rr.cpp">
+      <Filter>algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="schedule\srtf.cpp">
+      <Filter>algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="schedule\schedule.cpp">
+      <Filter>algorithms</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="scheduling_strategy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="schedule_factory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -54,6 +66,12 @@
       <Filter>data_structure</Filter>
     </ClInclude>
     <ClInclude Include="process_arrival_simulator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="schedule_strategy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="process_listener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

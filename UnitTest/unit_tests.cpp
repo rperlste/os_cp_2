@@ -9,19 +9,19 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 namespace UnitTest
 {		
   TEST_CLASS( test_VirtualPCB )
-	{
-	public:
+  {
+  public:
 
-		TEST_METHOD( construct_VirtualPCB )
-		{
+    TEST_METHOD( construct_VirtualPCB )
+    {
       PROCESS_ID pid = 1;
       SYSTEM_TIME burst_time = 2;
       VirtualPCB pcb( pid, burst_time );
       Assert::AreEqual( pid, pcb.pid );
       Assert::AreEqual( burst_time, pcb.burst_time );
-		}
+    }
 
-	};
+  };
 
   TEST_CLASS( test_VirtualCPU ) {
   public:

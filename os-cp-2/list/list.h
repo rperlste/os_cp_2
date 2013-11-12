@@ -5,7 +5,7 @@
  *    Spring 2013
  *    Forward Linked List
  *    
- *    Class declaration for a single-ended, singly-linked list with iterator
+ *    Class declaration for a single-ended, singly-f_linked list with iterator
  *    support. Compatible with C++ STL
  */
 
@@ -146,11 +146,14 @@ public:
     unsigned        size() const { return used; }
     bool            empty() const { return used==0; }
     const T&        front() const;
+    const T&        back() const;
     const iterator  find( const T& ) const;
 
     // Modification members
     void            push_front( const T& );
     void            pop_front();
+    void            push_back( const T& );
+    void            pop_back();
     iterator        find( const T& );
     void            insert( const T&, unsigned );
     void            insert_after( iterator, const T& );
@@ -170,14 +173,15 @@ public:
     iterator        end() const;
 
 private:
-    // Nest our linked-fw_list node
+    // Nest our f_linked-fw_list node
     struct node
     {
-        node(const T& val=T(), node* n=0):data(val),link(n) { }
+        node(const T& val=T(), node* n=0):data(val),f_link(n) { }
         T           data;
-        node*       link;
+        node*       f_link;
     };
     node*           head;
+    node*           tail;
     unsigned        used;
     node*           copy(node*);
 };
@@ -191,8 +195,6 @@ public:
     // Constructors
     fw_list();
     fw_list( const fw_list<T*>& );
-    fw_list( iterator, iterator );
-    fw_list( T**, T** );
     ~fw_list();
 
     // Constant members
@@ -225,12 +227,14 @@ public:
     iterator        end() const;
 
 private:
-    // Nest our linked-fw_list node
+    // Nest our f_linked-fw_list node
     struct node
     {
-        node(T* val=0, node* n=0):data(val),link(n) { }
+        node(T* val=0, node* f_link=0, node* b_link=0)
+          :data(val),f_link(f_link),b_link(b_link) { }
         T*          data;
-        node*       link;
+        node*       f_link;
+        node*       b_link;
     };
     node*           head;
     unsigned        used;

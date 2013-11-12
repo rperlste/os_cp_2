@@ -18,7 +18,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -65,16 +65,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="schedule\schedule.cpp" />
     <ClCompile Include="virtual_cpu.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="process_listener.h" />
     <ClInclude Include="list\list.h" />
     <ClInclude Include="list\node_iterator.h" />
     <ClInclude Include="process_arrival_simulator.h" />
+    <ClCompile Include="schedule\fcfs.cpp">
+      <FileType>CppHeader</FileType>
+    </ClCompile>
+    <ClCompile Include="schedule\rr.cpp">
+      <FileType>CppHeader</FileType>
+    </ClCompile>
+    <ClCompile Include="schedule\srtf.cpp">
+      <FileType>CppHeader</FileType>
+    </ClCompile>
     <ClInclude Include="simulation_macros.h" />
     <ClInclude Include="schedule_simulator.h" />
     <ClInclude Include="schedule_factory.h" />
-    <ClInclude Include="scheduling_strategy.h" />
+    <ClInclude Include="schedule_strategy.h" />
     <ClInclude Include="virtual_cpu.h" />
     <ClInclude Include="virtual_pcb.h" />
   </ItemGroup>

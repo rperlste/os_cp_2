@@ -2,12 +2,12 @@
 #define _schedule_factory
 
 #include "simulation_macros.h"
-#include "scheduling_strategy.h"
+#include "schedule_strategy.h"
 
 struct factory_map_node
 {
-  ScheduleType schedule_type;
-  CreateSchedule create_func;
+  ScheduleType      schedule_type;
+  CreateSchedule    create_func;
 
   factory_map_node( ScheduleType schedule_type, CreateSchedule create_func ) {
     this->schedule_type = schedule_type;
@@ -43,7 +43,7 @@ public:
     schedule_map.push_front( factory_map_node( schedule_type, create_func ) );
   }
 
-  SchedulingStrategy* CreateSchedule( const ScheduleType& schedule_type ) {
+  ScheduleStrategy* CreateSchedule( const ScheduleType& schedule_type ) {
     ScheduleMap::iterator it = schedule_map.begin();
     while( it != schedule_map.end() ) {
       if( it->data.schedule_type == schedule_type ) {

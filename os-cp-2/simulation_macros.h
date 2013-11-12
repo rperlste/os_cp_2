@@ -7,6 +7,7 @@
 
 #define MILLISECOND         100
 #define CONTEXT_SWITCH_TIME 50
+#define CPU_TICK            50
 
 enum ScheduleType
 {

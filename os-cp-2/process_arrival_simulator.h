@@ -7,6 +7,7 @@ struct incoming_process
   SYSTEM_TIME arrival_time;
 };
 
+// Simulates the arrival of processes at CPU clock times
 class ProcessArrivalSimulator
 {
 public:
