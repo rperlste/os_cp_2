@@ -14,8 +14,5 @@ int main( unsigned argc, const char* argv ) {
     return 1;
   }
   
-  ScheduleSimulator simulator( argv );
-  simulator.run_algorithm();
-  
   return 0;
 }

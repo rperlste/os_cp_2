@@ -18,7 +18,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -66,10 +66,12 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="schedule\schedule.cpp" />
+    <ClCompile Include="schedule_monitor.cpp" />
     <ClCompile Include="virtual_cpu.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="process_listener.h" />
+    <ClInclude Include="input_file_parser.h" />
+    <ClInclude Include="schedule_monitor.h" />
     <ClInclude Include="list\list.h" />
     <ClInclude Include="list\node_iterator.h" />
     <ClInclude Include="process_arrival_simulator.h" />

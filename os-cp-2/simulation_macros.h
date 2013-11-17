@@ -5,6 +5,7 @@
 #define SYSTEM_TIME   unsigned
 #define TIME_QUANTA   unsigned
 
+#define MAX_SYSTEM_TIME     -1
 #define MILLISECOND         100
 #define CONTEXT_SWITCH_TIME 50
 #define CPU_TICK            50

@@ -2,6 +2,11 @@
 #include "CppUnitTest.h"
 
 #include "virtual_cpu.cpp"
+#include "schedule_factory.h"
+#include "schedule/schedule.cpp"
+#include "schedule/fcfs.cpp"
+#include "schedule/rr.cpp"
+#include "schedule/srtf.cpp"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -124,6 +129,14 @@ namespace UnitTest
 
     TEST_METHOD( execute_process_with_context_switching ) {
 
+    }
+
+  };
+
+  TEST_CLASS( TEST_SchedulingStrategy ) {
+
+    TEST_METHOD( construct_FCFS_Schedule ) {
+      FCFS_Schedule fcfs;
     }
 
   };

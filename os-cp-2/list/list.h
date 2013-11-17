@@ -176,9 +176,10 @@ private:
     // Nest our f_linked-fw_list node
     struct node
     {
-        node(const T& val=T(), node* n=0):data(val),f_link(n) { }
+        node(const T& val=T(), node* n=0, node* t=0):data(val),f_link(n),b_link(t) { }
         T           data;
         node*       f_link;
+        node*       b_link;
     };
     node*           head;
     node*           tail;
@@ -186,62 +187,270 @@ private:
     node*           copy(node*);
 };
 
-// Specialization for pointers
 template <typename T>
-class fw_list<T*> {
-public:
-    typedef fw_node_iterator<T*> iterator;
+fw_list<T>::fw_list() {
+  used = 0;
+  head = 0;
+  tail = 0;
+}
 
-    // Constructors
-    fw_list();
-    fw_list( const fw_list<T*>& );
-    ~fw_list();
+template <typename T>
+fw_list<T>::~fw_list() {
+  node* temp = head;
+  while( used > 0 ) {
+    head = head->f_link;
+    delete temp;
+    temp = head;
+    -- used;
+  }
+}
 
-    // Constant members
-    unsigned        size() const { return used; }
-    bool            empty() const { return used==0; }
-    T* const        front() const;
-    const iterator  find( T* const ) const;
 
-    // Modification members
-    void            push_front( T* const );
-    void            pop_front();
-    iterator        find( T* const );
-    void            insert( T* const, unsigned );
-    void            insert_after( iterator, T* const );
-    bool            erase_one( T* const );
-    unsigned        erase( T* const );
-    void            clear();
+template <typename T>
+fw_list<T>::fw_list( const fw_list<T>& rList ) {
+  used = 0;
+  head = 0;
+  tail = 0;
+  *this = rList;
+}
 
-    // Operators
-    fw_list<T*>&    operator =  ( const fw_list<T*>& );
-    void            operator += ( const fw_list<T*>& );
+template <typename T>
+const T& fw_list<T>::front() const {
+  if( used == 0 )
+    throw std::exception(
+    std::string( "No elements exist in the fw_list." ).c_str() );
+  return head->data;
+}
 
-    // Friends
-    template<T*> friend std::ostream& 
-                    operator << ( std::ostream&, const fw_list<T*>& );
-    friend class    fw_node_iterator<T*>;
 
-    // Forward iterator support
-    iterator        begin() const;
-    iterator        end() const;
+template <typename T>
+const typename fw_list<T>::iterator fw_list<T>::find( const T& data ) const {
+  iterator it( 0 );
+  for( it = begin();
+       it != end();
+       ++ it ) {
+    if( ( *it ) == data )
+      return it;
+  }
+  return it;
+}
 
-private:
-    // Nest our f_linked-fw_list node
-    struct node
-    {
-        node(T* val=0, node* f_link=0, node* b_link=0)
-          :data(val),f_link(f_link),b_link(b_link) { }
-        T*          data;
-        node*       f_link;
-        node*       b_link;
-    };
-    node*           head;
-    unsigned        used;
-    node*           copy(node*);
-};
 
-#include "list.tem"
+template <typename T>
+void fw_list<T>::push_front( const T& data ) {
+  node* temp = new node( data, head );
+  head->b_link = temp;
+  head = temp;
+  ++ used;
+}
 
+template <typename T>
+void fw_list<T>::pop_front() {
+  if( used == 0 ) return;
+  typename fw_list<T>::node* toDel = head;
+  head = head->f_link;
+  head->b_link = 0;
+  delete toDel;
+  -- used;
+}
+
+template <typename T>
+void fw_list<T>::push_back( const T& data ) {
+  node* temp = new node( data, 0, tail );
+  tail->f_link = temp;
+  tail = temp;
+  ++ used;
+}
+
+template <typename T>
+void fw_list<T>::pop_back() {
+  if( used == 0 ) return;
+  typename fw_list<T>::node* toDel = tail;
+  tail = tail->f_link;
+  tail->f_link = 0;
+  delete toDel;
+  -- used;
+}
+
+
+template <typename T>
+typename fw_list<T>::iterator fw_list<T>::find( const T& data ) {
+  unsigned i = 0;
+  node* n = head;
+  while( i < used ) {
+    if( n->data == data )
+      break;
+    n = n->f_link;
+    ++ i;
+  }
+  return iterator( n );
+}
+
+
+template <typename T>
+void fw_list<T>::insert( const T& data, unsigned insPos ) {
+
+  // Special case: Insert at head
+  if( insPos == 0 || used == 0 ) {
+    head = new node( data, head );
+  }
+
+  // Insert in middle or end
+  else {
+    unsigned currPos = 1;
+    node* currNode = head;
+    while( currNode->f_link != 0
+           && currPos < insPos ) {
+      currNode = currNode->f_link;
+      ++ currPos;
+    }
+    currNode->f_link = new node( data, currNode->f_link );
+  }
+  ++ used;
+  return;
+
+}
+
+template <typename T>
+void fw_list<T>::insert_after( iterator it, const T& data ) {
+  // End insert
+  if( it->f_link == 0 ) {
+    it->f_link = new node( data, 0, it->b_link );
+  } else {
+    node* temp = new node( data, it->f_link, *it );
+    it->f_link->b_link = temp;
+    it->f_link = temp;
+  }
+  ++ used;
+}
+
+template <typename T>
+bool fw_list<T>::erase_one( const T& toErase ) {
+  unsigned pos = 0;
+  node* curr = head;
+  node* toDel = head;
+
+  // Delete head, special case
+  if( curr != 0 && curr->data == toErase ) {
+    if( curr->f_link != 0 ) {
+      curr = curr->f_link;
+    }
+    delete toDel;
+    -- used;
+    return true;
+  }
+  ++ pos;
+  toDel = curr->f_link;
+  while( pos < used ) {
+    if( toDel->data == toErase ) {
+      curr->f_link = toDel->f_link;
+      -- used;
+      return true;
+    }
+    ++ pos;
+    curr = toDel;
+    toDel = toDel->f_link;
+  }
+  return false;
+}
+
+template <typename T>
+unsigned fw_list<T>::erase( const T& toErase ) {
+  unsigned count = 0;
+  node* curr = head;
+  node* toDel = head;
+
+  // Special case: head deletion
+  while( curr != 0
+         && curr->data == toErase ) {
+    toDel = curr;
+    curr = curr->f_link;
+    delete toDel;
+    ++ count;
+    -- used;
+  }
+
+  while( curr != 0 ) {
+    toDel = curr->f_link;
+    if( toDel != 0 ) {
+      if( toDel->data == toErase ) {
+        curr->f_link = toDel->f_link;
+        delete toDel;
+        toDel = curr->f_link;
+        ++ count;
+        -- used;
+      } else {
+        curr = curr->f_link;
+        toDel = curr->f_link;
+      }
+    } else {
+      break;
+    }
+  }
+  return count;
+}
+
+template <typename T>
+void fw_list<T>::clear() {
+  while( used > 0 ) {
+    pop_front();
+  }
+}
+
+template <typename T>
+fw_list<T>& fw_list<T>::operator = ( const fw_list<T>& rList ) {
+  this->clear();
+  // avoid unnecessary traversal
+  if( rList.size() > 0 ) {
+    node* insNode = rList.head;
+    head = new node( insNode->data );
+    node* currNode = head;
+    insNode = insNode->f_link;
+    while( insNode != 0 ) {
+      currNode->f_link = new node( insNode->data );
+      currNode = currNode->f_link;
+      insNode = insNode->f_link;
+    }
+  }
+  used = rList.size();
+  return *this;
+}
+
+// Warning... not cheap to use!
+template <typename T>
+void fw_list<T>::operator += ( const fw_list<T>& rList ) {
+  // avoid unnecessary traversal
+  if( rList.size() > 0 ) {
+    if( head != 0 ) {
+      node* currNode = head;
+      node* insNode = rList.head;
+      while( currNode->f_link != 0 ) {
+        currNode = currNode->f_link;
+      }
+      while( insNode != 0 ) {
+        currNode->f_link = new node( insNode->data );
+        currNode = currNode->f_link;
+        insNode = insNode->f_link;
+        ++ used;
+      }
+    }
+  }
+}
+
+
+template <typename T>
+typename fw_list<T>::iterator fw_list<T>::begin() const {
+  return iterator( head );
+}
+
+template <typename T>
+typename fw_list<T>::iterator fw_list<T>::end() const {
+  return iterator();
+}
+
+template <typename T>
+typename fw_list<T>::node* fw_list<T>::copy( node* toCopy ) {
+  return new node( toCopy->data, toCopy->f_link, toCopy->b_link );
+}
 
 #endif

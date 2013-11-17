@@ -13,14 +13,14 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="data_structure">
-      <UniqueIdentifier>{ba3529a0-32d4-4b9a-b457-fa1ef216d5f9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="data_structure_iteratable">
       <UniqueIdentifier>{d1c2bec4-03d5-42f1-961f-8250a8c2608f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="algorithms">
+    <Filter Include="schedule_strategy">
       <UniqueIdentifier>{8176af0c-e835-478d-8e90-1c328e233598}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpu_structure">
+      <UniqueIdentifier>{ba3529a0-32d4-4b9a-b457-fa1ef216d5f9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -28,19 +28,22 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="virtual_cpu.cpp">
-      <Filter>data_structure</Filter>
+      <Filter>cpu_structure</Filter>
     </ClCompile>
     <ClCompile Include="schedule\fcfs.cpp">
-      <Filter>algorithms</Filter>
+      <Filter>schedule_strategy</Filter>
     </ClCompile>
     <ClCompile Include="schedule\rr.cpp">
-      <Filter>algorithms</Filter>
+      <Filter>schedule_strategy</Filter>
     </ClCompile>
     <ClCompile Include="schedule\srtf.cpp">
-      <Filter>algorithms</Filter>
+      <Filter>schedule_strategy</Filter>
     </ClCompile>
     <ClCompile Include="schedule\schedule.cpp">
-      <Filter>algorithms</Filter>
+      <Filter>schedule_strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="schedule_monitor.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -60,19 +63,22 @@
       <Filter>data_structure_iteratable</Filter>
     </ClInclude>
     <ClInclude Include="virtual_pcb.h">
-      <Filter>data_structure</Filter>
+      <Filter>cpu_structure</Filter>
     </ClInclude>
     <ClInclude Include="virtual_cpu.h">
-      <Filter>data_structure</Filter>
+      <Filter>cpu_structure</Filter>
     </ClInclude>
     <ClInclude Include="process_arrival_simulator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="schedule_strategy.h">
+    <ClInclude Include="schedule_monitor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="process_listener.h">
+    <ClInclude Include="input_file_parser.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="schedule_strategy.h">
+      <Filter>schedule_strategy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

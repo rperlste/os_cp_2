@@ -15,16 +15,17 @@ public:
   ScheduleSimulator( const char* argv );
   virtual ~ScheduleSimulator();
 
-  void      load_input( const char* filename );
-  void      set_scheduling_strategy( ScheduleType, TIME_QUANTA = MILLISECOND );
-  void      run_algorithm();
-  void      execute_burst();
+  void                    load_input( const char* filename );
+  void                    set_scheduling_strategy( ScheduleType, TIME_QUANTA = MILLISECOND );
+  void                    run_algorithm();
 
 private:
   ProcessArrivalSimulator proccess_arrival_simulator;
   ScheduleStrategy*       scheduler;
   ScheduleFactory*        schedule_factory;
   VirtualCPU              cpu;
+
+  void                    execute_burst();
 };
 
 #endif

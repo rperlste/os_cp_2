@@ -41,13 +41,13 @@ typename fw_node_iterator<T>::node* fw_node_iterator<T>::operator -> () const {
 template <typename T>
 void fw_node_iterator<T>::operator ++ () {
     if ( cursor != 0 ){
-        cursor = cursor->link;
+        cursor = cursor->f_link;
     }
 }
 
 template <typename T>
 void fw_node_iterator<T>::operator ++ ( int ) {
     if ( cursor != 0 ){
-        cursor = cursor->link;
+        cursor = cursor->f_link;
     }
 }

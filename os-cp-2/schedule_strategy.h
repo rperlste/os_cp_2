@@ -1,9 +1,11 @@
 #ifndef _scheduling_strategy
 #define _scheduling_strategy
 
+#include <exception>
 #include "virtual_pcb.h"
 #include "virtual_cpu.h"
 #include "list/list.h"
+#include "schedule_monitor.h"
 
 class ScheduleStrategy
 {
@@ -11,8 +13,8 @@ public:
   typedef unsigned        size_t;
   size_t                  size();
   VirtualPCB              front();
-  void                    pop_front();
-  virtual void            add( const VirtualPCB& ) = 0;
+  VirtualPCB              pop_front();
+  virtual void            add( const VirtualPCB& );
   virtual SYSTEM_TIME     execute_burst() = 0;
 
 protected:
@@ -22,15 +24,18 @@ protected:
 
 typedef ScheduleStrategy* ( __stdcall *CreateSchedule )( void );
 
+
+/////////////////////////////////////////////////////////////////////////////////
 class FCFS_Schedule : public ScheduleStrategy
 {
 public:
-  void            add( const VirtualPCB& );
   SYSTEM_TIME     execute_burst();
 
   static ScheduleStrategy* __stdcall create() { return new FCFS_Schedule(); }
 };
 
+
+/////////////////////////////////////////////////////////////////////////////////
 class RR_Schedule : public ScheduleStrategy
 {
 public:
@@ -38,15 +43,16 @@ public:
   RR_Schedule(){
     time_quanta = MILLISECOND;
   }
-  void            add( const VirtualPCB& );
-  SYSTEM_TIME     execute_burst();
 
+  SYSTEM_TIME     execute_burst();
   SYSTEM_TIME     time_quanta;
 
 
   static ScheduleStrategy* __stdcall create() { return new RR_Schedule(); }
 };
 
+
+////////////////////////////////////////////////////////////////////////////////
 class SRTF_Schedule : public ScheduleStrategy
 {
 public:

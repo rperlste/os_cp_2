@@ -19,4 +19,27 @@ public:
 
 };
 
+struct IncomingProcess
+{
+  VirtualPCB    pcb;
+  SYSTEM_TIME   arrival_time;
+};
+
+struct ProcessLifetime
+{
+  ProcessLifetime( const IncomingProcess& incoming_process ) {
+    pcb               = incoming_process.pcb;
+    arrival_time      = incoming_process.arrival_time;
+    completion_time   = MAX_SYSTEM_TIME;
+    response_time     = MAX_SYSTEM_TIME;
+    context_switches  = MAX_SYSTEM_TIME;
+  }
+  VirtualPCB    pcb;
+  SYSTEM_TIME   arrival_time;
+  SYSTEM_TIME   completion_time;
+  SYSTEM_TIME   response_time;
+  unsigned      context_switches;
+};
+
+
 #endif
