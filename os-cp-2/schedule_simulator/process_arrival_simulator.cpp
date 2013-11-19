@@ -1,7 +1,7 @@
 #include "process_arrival_simulator.h"
 
-void ProcessArrivalSimulator::parse_file( const char* filename ) {
-  InputFileParser parser( filename );
+void ProcessArrivalSimulator::parse_file( std::fstream* file ) {
+  InputFileParser parser( file );
   while( !parser.complete() ) {
     processes.push_back( parser.next_process() );
   }

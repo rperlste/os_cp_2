@@ -9,7 +9,7 @@
 class InputFileParser
 {
 public:
-  InputFileParser( const char* filename );
+  InputFileParser( std::fstream* file );
   virtual ~InputFileParser();
   bool complete();
   IncomingProcess next_process();

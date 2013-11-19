@@ -1,12 +1,10 @@
 #include "input_file_parser.h"
 
-InputFileParser::InputFileParser( const char* filename ) {
-  file = new std::fstream( filename );
+InputFileParser::InputFileParser( std::fstream* file ) {
+  this->file = file;
 }
 
-InputFileParser::~InputFileParser() {
-  delete file;
-}
+InputFileParser::~InputFileParser() {}
 
 bool InputFileParser::complete() {
   return file->eof();
@@ -18,9 +16,8 @@ IncomingProcess InputFileParser::next_process() {
   std::string         input_tokens[3];
   unsigned            input_position = 0;
 
-  input_stream << file;
-  input_line = input_stream.str();
 
+  std::getline( *file, input_line );
 
   for( int i = 0; i < input_line.size(); ++ i ) {
     if( isalnum( input_line[i] ) ) {
@@ -37,8 +34,8 @@ IncomingProcess InputFileParser::next_process() {
 
   IncomingProcess incoming_process;
   incoming_process.pcb = VirtualPCB( atoi( input_tokens[0].c_str() ),
-                                     atoi( input_tokens[1].c_str() ) );
-  incoming_process.arrival_time = atoi( input_tokens[2].c_str() );
+                                     atoi( input_tokens[2].c_str() ) );
+  incoming_process.arrival_time = atoi( input_tokens[1].c_str() );
 
   return incoming_process;
 }

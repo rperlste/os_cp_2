@@ -1,12 +1,16 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
+#include <string>
+
 #include "virtual_cpu/virtual_cpu.cpp"
 #include "schedule_strategy/schedule_factory.h"
 #include "schedule_strategy/schedule.cpp"
 #include "schedule_strategy/rr.cpp"
 #include "schedule_strategy/fcfs.cpp"
 #include "schedule_strategy/srtf.cpp"
+#include "schedule_simulator/input_file_parser.cpp"
+#include "schedule_simulator/process_arrival_simulator.cpp"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -245,6 +249,7 @@ public:
       ScheduleFactory* factory = ScheduleFactory::INSTANCE();
       ScheduleStrategy* rr = factory->CreateSchedule( ScheduleType::RR );
       rr->add( VirtualPCB( 1, 100 ) );
+      Assert::AreEqual( (SYSTEM_TIME) 100, rr->time_quanta );
       rr->pop_front();
     }
 
@@ -253,6 +258,45 @@ public:
       ScheduleStrategy* srtf = factory->CreateSchedule( ScheduleType::SRTF );
       srtf->add( VirtualPCB( 1, 100 ) );
       srtf->pop_front();
+    }
+  };
+
+  TEST_CLASS( TEST_InputFileParser ) {
+    TEST_METHOD( construction ) {
+      std::fstream file( "../os-cp-2/input/input10.dat" );
+      InputFileParser parser( &file );
+    }
+
+    TEST_METHOD( read_file ) {
+
+      std::fstream file( "../os-cp-2/input/input10.dat" );
+      InputFileParser parser( &file );
+
+      IncomingProcess ip = parser.next_process();
+      Assert::AreEqual( (PROCESS_ID) 1, ip.pcb.pid );
+      Assert::AreEqual( (SYSTEM_TIME) 1, ip.pcb.burst_time );
+      Assert::AreEqual( (SYSTEM_TIME) 0, ip.arrival_time );
+
+      ip = parser.next_process();
+      Assert::AreEqual( (PROCESS_ID) 2, ip.pcb.pid );
+      Assert::AreEqual( (SYSTEM_TIME) 7, ip.pcb.burst_time );
+      Assert::AreEqual( (SYSTEM_TIME) 2, ip.arrival_time );
+
+      ip = parser.next_process();
+      Assert::AreEqual( (PROCESS_ID) 3, ip.pcb.pid );
+      Assert::AreEqual( (SYSTEM_TIME) 6, ip.pcb.burst_time );
+      Assert::AreEqual( (SYSTEM_TIME) 3, ip.arrival_time );
+
+      // if infinite loop this is broken!
+      while( !parser.complete() ) {
+        parser.next_process();
+      }
+    }
+  };
+
+  TEST_CLASS( TEST_ProcessArrivalSimulator ) {
+    TEST_METHOD( construction ) {
+      ProcessArrivalSimulator p;
     }
   };
 }

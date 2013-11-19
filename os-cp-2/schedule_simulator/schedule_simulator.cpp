@@ -1,10 +1,10 @@
 #include "schedule_simulator.h"
 
 
-ScheduleSimulator::ScheduleSimulator( const char* filename,
+ScheduleSimulator::ScheduleSimulator( std::fstream* file,
                                       ScheduleType schedule_type,
                                       TIME_QUANTA time_quanta /* = MILLISECOND */ ) {
-  proccess_arrival_simulator.parse_file( filename );
+  proccess_arrival_simulator.parse_file( file );
   schedule_factory = ScheduleFactory::INSTANCE();
   scheduler = schedule_factory->CreateSchedule( schedule_type );
   if( schedule_type == ScheduleType::RR ) {

@@ -10,7 +10,7 @@
 class ScheduleSimulator
 {
 public:
-  ScheduleSimulator( const char* filename,
+  ScheduleSimulator( std::fstream* file,
                      ScheduleType schedule_type,
                      TIME_QUANTA time_quanta = MILLISECOND );
   virtual ~ScheduleSimulator();

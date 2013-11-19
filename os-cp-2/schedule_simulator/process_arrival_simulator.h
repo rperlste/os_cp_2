@@ -11,7 +11,7 @@ class ProcessArrivalSimulator
 public:
   typedef unsigned size_t;
 
-  void                      parse_file( const char* filename );
+  void                      parse_file( std::fstream* file );
   bool                      process_ready( SYSTEM_TIME );
   IncomingProcess           next_process();
   size_t                    size();
