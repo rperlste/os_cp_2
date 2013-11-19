@@ -1,6 +1,6 @@
-#include "../schedule_strategy.h"
+#include "../schedule_strategy/schedule_strategy.h"
 
-SYSTEM_TIME RR_Schedule::execute_burst() {
+void RR_Schedule::execute_burst( VirtualCPU& cpu ) {
   if( queue.size() ) {
 
     VirtualPCB pcb( pop_front() );
@@ -8,13 +8,8 @@ SYSTEM_TIME RR_Schedule::execute_burst() {
     // TODO remove passing copies, use references
     cpu.load_process( pcb );
     SYSTEM_TIME burst_duration = cpu.execute_process( time_quanta );
-    pcb = cpu.get_PCB( );
-    if( pcb.burst_time != 0 ) {
-      add( pcb );
+    if( cpu.burst_time > 0 ) {
+      add( cpu.get_PCB() );
     }
-    return burst_duration;
-
-  } else {
-    return 0;
   }
 }

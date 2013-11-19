@@ -2,9 +2,9 @@
 #define _schedule_monitor
 
 #include <iostream>
-#include "project_macros.h"
-#include "virtual_pcb.h"
-#include "list/list.h"
+#include "../schedule_simulator/simulation_macros.h"
+#include "../virtual_cpu/virtual_pcb.h"
+#include "../list/list.h"
 
 class ScheduleMonitor {
 public:

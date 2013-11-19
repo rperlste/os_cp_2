@@ -65,37 +65,38 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="schedule\schedule.cpp" />
-    <ClCompile Include="schedule_monitor.cpp" />
-    <ClCompile Include="virtual_cpu.cpp" />
+    <ClCompile Include="schedule_simulator\input_file_parser.cpp" />
+    <ClCompile Include="schedule_simulator\process_arrival_simulator.cpp" />
+    <ClCompile Include="schedule_simulator\schedule_simulator.cpp" />
+    <ClCompile Include="schedule_strategy\schedule.cpp" />
+    <ClCompile Include="schedule_simulator\schedule_monitor.cpp" />
+    <ClCompile Include="virtual_cpu\virtual_cpu.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="input_file_parser.h" />
-    <ClInclude Include="schedule_monitor.h" />
+    <ClInclude Include="schedule_simulator\input_file_parser.h" />
+    <ClInclude Include="schedule_simulator\schedule_monitor.h" />
     <ClInclude Include="list\list.h" />
     <ClInclude Include="list\node_iterator.h" />
-    <ClInclude Include="process_arrival_simulator.h" />
-    <ClCompile Include="schedule\fcfs.cpp">
+    <ClInclude Include="schedule_simulator\process_arrival_simulator.h" />
+    <ClCompile Include="schedule_strategy\fcfs.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
-    <ClCompile Include="schedule\rr.cpp">
+    <ClCompile Include="schedule_strategy\rr.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
-    <ClCompile Include="schedule\srtf.cpp">
+    <ClCompile Include="schedule_strategy\srtf.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
-    <ClInclude Include="simulation_macros.h" />
-    <ClInclude Include="schedule_simulator.h" />
-    <ClInclude Include="schedule_factory.h" />
-    <ClInclude Include="schedule_strategy.h" />
-    <ClInclude Include="virtual_cpu.h" />
-    <ClInclude Include="virtual_pcb.h" />
+    <ClInclude Include="schedule_simulator\simulation_macros.h" />
+    <ClInclude Include="schedule_simulator\schedule_simulator.h" />
+    <ClInclude Include="schedule_strategy\schedule_factory.h" />
+    <ClInclude Include="schedule_strategy\schedule_strategy.h" />
+    <ClInclude Include="virtual_cpu\virtual_cpu.h" />
+    <ClInclude Include="virtual_cpu\virtual_pcb.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="input\input10.dat" />
     <None Include="input\input100.dat" />
-    <None Include="list\list.tem" />
-    <None Include="list\node_iterator.tem" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

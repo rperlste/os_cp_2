@@ -1,4 +1,4 @@
-#include "simulation_macros.h"
+#include "../schedule_simulator/simulation_macros.h"
 
 #ifndef _virtual_pcb
 #define _virtual_pcb
@@ -9,12 +9,12 @@ public:
   PROCESS_ID    pid;
   SYSTEM_TIME   burst_time;
 
-  VirtualPCB( PROCESS_ID pid = 0, SYSTEM_TIME burst_time = 0 ) 
+  VirtualPCB( PROCESS_ID pid = 0, SYSTEM_TIME burst_time = 0 )
     :pid( pid ), burst_time( burst_time ) {};
 
   inline bool operator == ( const VirtualPCB& right_side ) const {
-    return ( this->pid == right_side.pid 
-      && this->burst_time == right_side.burst_time );
+    return ( this->pid == right_side.pid
+             && this->burst_time == right_side.burst_time );
   }
 
 };
@@ -28,11 +28,11 @@ struct IncomingProcess
 struct ProcessLifetime
 {
   ProcessLifetime( const IncomingProcess& incoming_process ) {
-    pcb               = incoming_process.pcb;
-    arrival_time      = incoming_process.arrival_time;
-    completion_time   = MAX_SYSTEM_TIME;
-    response_time     = MAX_SYSTEM_TIME;
-    context_switches  = MAX_SYSTEM_TIME;
+    pcb = incoming_process.pcb;
+    arrival_time = incoming_process.arrival_time;
+    completion_time = MAX_SYSTEM_TIME;
+    response_time = MAX_SYSTEM_TIME;
+    context_switches = MAX_SYSTEM_TIME;
   }
   VirtualPCB    pcb;
   SYSTEM_TIME   arrival_time;

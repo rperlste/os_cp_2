@@ -1,7 +1,7 @@
 #ifndef _schedule_factory
 #define _schedule_factory
 
-#include "simulation_macros.h"
+#include "../schedule_simulator/simulation_macros.h"
 #include "schedule_strategy.h"
 
 struct factory_map_node

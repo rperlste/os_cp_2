@@ -1,23 +1,4 @@
-#ifndef _input_file_parser
-#define __input_file_parser
-
-#include <fstream>
-#include <sstream>
-#include <cstdlib>
-#include "virtual_pcb.h"
-
-class InputFileParser
-{
-public:
-  InputFileParser( const char* filename );
-  virtual ~InputFileParser();
-  bool complete();
-  IncomingProcess next_process();
-
-private:
-  std::fstream* file;
-
-};
+#include "input_file_parser.h"
 
 InputFileParser::InputFileParser( const char* filename ) {
   file = new std::fstream( filename );
@@ -31,7 +12,7 @@ bool InputFileParser::complete() {
   return file->eof();
 }
 
-IncomingProcess InputFileParser::next_process( ) {
+IncomingProcess InputFileParser::next_process() {
   std::stringstream   input_stream;
   std::string         input_line;
   std::string         input_tokens[3];
@@ -55,12 +36,9 @@ IncomingProcess InputFileParser::next_process( ) {
   }
 
   IncomingProcess incoming_process;
-  incoming_process.pcb = VirtualPCB(  atoi( input_tokens[0].c_str() ), 
-                                      atoi( input_tokens[1].c_str() ));
-  incoming_process.arrival_time     = atoi( input_tokens[2].c_str( ) );
+  incoming_process.pcb = VirtualPCB( atoi( input_tokens[0].c_str() ),
+                                     atoi( input_tokens[1].c_str() ) );
+  incoming_process.arrival_time = atoi( input_tokens[2].c_str() );
 
   return incoming_process;
 }
-
-
-#endif // !_input_file_parser

@@ -6,7 +6,7 @@ Assign: Lab 2 - CPU scheduling algorithm simulator
 */
 
 #include <iostream>
-#include "schedule_simulator.h"
+#include "schedule_simulator/schedule_simulator.h"
 
 int main( unsigned argc, const char* argv ) {
   if( argc != 2 && argc != 3 ) {

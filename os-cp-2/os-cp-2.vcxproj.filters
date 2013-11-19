@@ -13,72 +13,81 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="data_structure_iteratable">
-      <UniqueIdentifier>{d1c2bec4-03d5-42f1-961f-8250a8c2608f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="schedule_strategy">
       <UniqueIdentifier>{8176af0c-e835-478d-8e90-1c328e233598}</UniqueIdentifier>
     </Filter>
-    <Filter Include="cpu_structure">
+    <Filter Include="virtual_cpu">
       <UniqueIdentifier>{ba3529a0-32d4-4b9a-b457-fa1ef216d5f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="list">
+      <UniqueIdentifier>{d1c2bec4-03d5-42f1-961f-8250a8c2608f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="virtual_cpu.cpp">
-      <Filter>cpu_structure</Filter>
-    </ClCompile>
-    <ClCompile Include="schedule\fcfs.cpp">
+    <ClCompile Include="schedule_strategy\fcfs.cpp">
       <Filter>schedule_strategy</Filter>
     </ClCompile>
-    <ClCompile Include="schedule\rr.cpp">
+    <ClCompile Include="schedule_strategy\rr.cpp">
       <Filter>schedule_strategy</Filter>
     </ClCompile>
-    <ClCompile Include="schedule\srtf.cpp">
+    <ClCompile Include="schedule_strategy\schedule.cpp">
       <Filter>schedule_strategy</Filter>
     </ClCompile>
-    <ClCompile Include="schedule\schedule.cpp">
+    <ClCompile Include="schedule_strategy\srtf.cpp">
       <Filter>schedule_strategy</Filter>
     </ClCompile>
-    <ClCompile Include="schedule_monitor.cpp">
+    <ClCompile Include="schedule_simulator\schedule_monitor.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="virtual_cpu\virtual_cpu.cpp">
+      <Filter>virtual_cpu</Filter>
+    </ClCompile>
+    <ClCompile Include="schedule_simulator\process_arrival_simulator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="schedule_simulator\input_file_parser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="schedule_simulator\schedule_simulator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="schedule_factory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="schedule_simulator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="simulation_macros.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
     <ClInclude Include="list\node_iterator.h">
-      <Filter>data_structure_iteratable</Filter>
+      <Filter>list</Filter>
     </ClInclude>
     <ClInclude Include="list\list.h">
-      <Filter>data_structure_iteratable</Filter>
+      <Filter>list</Filter>
     </ClInclude>
-    <ClInclude Include="virtual_pcb.h">
-      <Filter>cpu_structure</Filter>
+    <ClInclude Include="virtual_cpu\virtual_cpu.h">
+      <Filter>virtual_cpu</Filter>
     </ClInclude>
-    <ClInclude Include="virtual_cpu.h">
-      <Filter>cpu_structure</Filter>
+    <ClInclude Include="virtual_cpu\virtual_pcb.h">
+      <Filter>virtual_cpu</Filter>
     </ClInclude>
-    <ClInclude Include="process_arrival_simulator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="schedule_monitor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="input_file_parser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="schedule_strategy.h">
+    <ClInclude Include="schedule_strategy\schedule_strategy.h">
       <Filter>schedule_strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="schedule_strategy\schedule_factory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="schedule_simulator\schedule_monitor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="schedule_simulator\schedule_simulator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="schedule_simulator\simulation_macros.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="schedule_simulator\process_arrival_simulator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="schedule_simulator\input_file_parser.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -87,12 +96,6 @@
     </None>
     <None Include="input\input100.dat">
       <Filter>Resource Files</Filter>
-    </None>
-    <None Include="list\list.tem">
-      <Filter>data_structure_iteratable</Filter>
-    </None>
-    <None Include="list\node_iterator.tem">
-      <Filter>data_structure_iteratable</Filter>
     </None>
   </ItemGroup>
 </Project>
