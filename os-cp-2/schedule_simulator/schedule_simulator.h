@@ -17,6 +17,7 @@ public:
   virtual ~ScheduleSimulator();
 
   void                      run();
+  std::string               print_results();
 
 private:
   ProcessArrivalSimulator   proccess_arrival_simulator;

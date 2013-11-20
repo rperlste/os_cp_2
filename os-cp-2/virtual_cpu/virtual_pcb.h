@@ -25,6 +25,9 @@ public:
 
 struct IncomingProcess
 {
+  IncomingProcess() {}
+  IncomingProcess( VirtualPCB pcb, SYSTEM_TIME arrival_time ) :
+    pcb( pcb ), arrival_time( arrival_time ) {}
   VirtualPCB    pcb;
   SYSTEM_TIME   arrival_time;
 
@@ -35,12 +38,13 @@ struct IncomingProcess
 
 struct ProcessLifetime
 {
+  ProcessLifetime() {}
   ProcessLifetime( const IncomingProcess& incoming_process ) {
     pcb = incoming_process.pcb;
     arrival_time = incoming_process.arrival_time;
     completion_time = MAX_SYSTEM_TIME;
     response_time = MAX_SYSTEM_TIME;
-    context_switches = MAX_SYSTEM_TIME;
+    context_switches = 0;
   }
   VirtualPCB    pcb;
   SYSTEM_TIME   arrival_time;

@@ -6,22 +6,25 @@ void SRTF_Schedule::add( const VirtualPCB& pcb ) {
   return;
 }
 
-void SRTF_Schedule::execute_burst( VirtualCPU& cpu ) {
-  if( queue.size() ) {
+void SRTF_Schedule::execute_burst( VirtualCPU& cpu, ScheduleMonitor& monitor ) {
+  if( cpu.burst_time == 0 ) {
+    cpu.load_process( pop_front() );
+    monitor.response( cpu.pid, cpu.system_time );
+  } else if( size() && cpu.burst_time > queue.front().burst_time ) {
+    add( cpu.get_PCB() );
+    monitor.context_switch( cpu.pid );
+    cpu.load_process( pop_front() );
+    monitor.response( cpu.pid, cpu.system_time );
+  }
 
-    cpu.load_process( front() );
-    SYSTEM_TIME burst_duration = 0;
-    while( cpu.get_PCB().burst_time > 0 &&  cpu.get_PCB().pid == front().pid ) {
-      burst_duration += cpu.execute_process( CPU_TICK );
-      sort();
-    }
-    if( cpu.get_PCB().burst_time == 0 ) {
-      pop_front();
-    }
-
+  cpu.execute_process();
+  monitor.cpu_burst( cpu.pid );
+  if( cpu.pid > 0 && cpu.burst_time == 0 ) {
+    monitor.complete( cpu.pid, cpu.system_time );
   }
 }
 
 void SRTF_Schedule::sort() {
+  queue.sort();
   return;
 }

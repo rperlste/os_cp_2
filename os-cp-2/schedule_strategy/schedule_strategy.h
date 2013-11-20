@@ -15,7 +15,7 @@ public:
   VirtualPCB              front();
   VirtualPCB              pop_front();
   virtual void            add( const VirtualPCB& );
-  virtual void            execute_burst( VirtualCPU& ) = 0;
+  virtual void            execute_burst( VirtualCPU&, ScheduleMonitor& ) = 0;
 
   SYSTEM_TIME             time_quanta;
 
@@ -30,7 +30,7 @@ typedef ScheduleStrategy* ( __stdcall *CreateSchedule )( void );
 class FCFS_Schedule : public ScheduleStrategy
 {
 public:
-  void     execute_burst( VirtualCPU& cpu );
+  void     execute_burst( VirtualCPU& cpu, ScheduleMonitor& monitor );
 
   static ScheduleStrategy* __stdcall create() { return new FCFS_Schedule(); }
 };
@@ -40,8 +40,8 @@ public:
 class RR_Schedule : public ScheduleStrategy
 {
 public:
-  RR_Schedule() { time_quanta = MILLISECOND; }
-  void     execute_burst( VirtualCPU& cpu );
+  RR_Schedule() { time_quanta = MILLISECOND; remaining_time = 0; }
+  void     execute_burst( VirtualCPU& cpu, ScheduleMonitor& monitor );
 
   SYSTEM_TIME remaining_time;
 
@@ -55,7 +55,7 @@ class SRTF_Schedule : public ScheduleStrategy
 public:
   void            add( const VirtualPCB& );
   void            sort();
-  void            execute_burst( VirtualCPU& cpu );
+  void     execute_burst( VirtualCPU& cpu, ScheduleMonitor& monitor );
 
   static ScheduleStrategy* __stdcall create() { return new SRTF_Schedule(); }
 };

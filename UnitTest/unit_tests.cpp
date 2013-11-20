@@ -253,6 +253,14 @@ public:
       ++ it;
       Assert::IsTrue( f.end() == it );
     }
+
+    TEST_METHOD( process_lifetime ) {
+
+      fw_list<ProcessLifetime> list;
+      list.push_back( IncomingProcess( (SYSTEM_TIME) 1, (SYSTEM_TIME) 100 ) );
+      fw_list<ProcessLifetime>::iterator it = list.begin();
+      Assert::AreEqual( (SYSTEM_TIME)1, it->data.pcb.pid );
+    }
   };
 
   TEST_CLASS( TEST4_ScheduleStrategy ) {
@@ -405,6 +413,13 @@ public:
     TEST_METHOD( run_FCFS ) {
       std::fstream file( "../os-cp-2/input/input10.dat" );
       ScheduleSimulator s( &file, ScheduleType::FCFS );
+      s.run();
+      Logger::WriteMessage( s.print_results().c_str() );
+    }
+
+    TEST_METHOD( run_RR ) {
+      std::fstream file( "../os-cp-2/input/input10.dat" );
+      ScheduleSimulator s( &file, ScheduleType::RR, 2 );
       s.run();
     }
 

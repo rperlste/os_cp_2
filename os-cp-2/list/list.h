@@ -99,16 +99,14 @@ fw_list<T>::fw_list( const fw_list<T>& rList ) {
 template <typename T>
 T& fw_list<T>::front() {
   if( used == 0 )
-    throw std::exception(
-    std::string( "No elements exist in the fw_list." ).c_str() );
+    throw std::exception();
   return head->data;
 }
 
 template <typename T>
 T& fw_list<T>::back() {
   if( used == 0 )
-    throw std::exception(
-    std::string( "No elements exist in the fw_list." ).c_str() );
+    throw std::exception();
   return tail->data;
 }
 

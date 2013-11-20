@@ -1,0 +1,2 @@
+ all:
+	g++ main.cpp schedule_simulator/schedule_simulator.cpp schedule_simulator/input_file_parser.cpp schedule_simulator/process_arrival_simulator.cpp schedule_simulator/schedule_monitor.cpp virtual_cpu/virtual_cpu.cpp schedule_strategy/schedule.cpp schedule_strategy/rr.cpp schedule_strategy/fcfs.cpp schedule_strategy/srtf.cpp -o lab2

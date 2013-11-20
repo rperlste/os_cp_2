@@ -37,8 +37,8 @@ IncomingProcess InputFileParser::next_process() {
   }
   IncomingProcess incoming_process;
   incoming_process.pcb = VirtualPCB( atoi( input_tokens[0].c_str() ),
-                                     atoi( input_tokens[2].c_str() )*100 );
-  incoming_process.arrival_time = atoi( input_tokens[1].c_str() )*100;
+                                     atoi( input_tokens[2].c_str( ) )*MILLISECOND );
+  incoming_process.arrival_time = atoi( input_tokens[1].c_str( ) )*MILLISECOND;
 
   return incoming_process;
 }
