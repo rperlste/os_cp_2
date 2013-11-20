@@ -43,6 +43,8 @@ public:
   RR_Schedule() { time_quanta = MILLISECOND; }
   void     execute_burst( VirtualCPU& cpu );
 
+  SYSTEM_TIME remaining_time;
+
   static ScheduleStrategy* __stdcall create() { return new RR_Schedule(); }
 };
 

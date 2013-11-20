@@ -17,12 +17,20 @@ public:
              && this->burst_time == right_side.burst_time );
   }
 
+  inline bool operator < ( const VirtualPCB& right_side ) const {
+    return ( this->burst_time < right_side.burst_time );
+  }
+
 };
 
 struct IncomingProcess
 {
   VirtualPCB    pcb;
   SYSTEM_TIME   arrival_time;
+
+  inline bool operator < ( const IncomingProcess& right_side ) const {
+    return ( this->arrival_time < right_side.arrival_time );
+  }
 };
 
 struct ProcessLifetime

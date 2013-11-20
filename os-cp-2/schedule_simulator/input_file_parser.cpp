@@ -7,7 +7,7 @@ InputFileParser::InputFileParser( std::fstream* file ) {
 InputFileParser::~InputFileParser() {}
 
 bool InputFileParser::complete() {
-  return file->eof();
+  return file->fail();
 }
 
 IncomingProcess InputFileParser::next_process() {
@@ -32,10 +32,13 @@ IncomingProcess InputFileParser::next_process() {
     }
   }
 
+  if( input_tokens[0] == "" || input_tokens[1] == "" || input_tokens[2] == "" ) {
+    throw std::exception();
+  }
   IncomingProcess incoming_process;
   incoming_process.pcb = VirtualPCB( atoi( input_tokens[0].c_str() ),
-                                     atoi( input_tokens[2].c_str() ) );
-  incoming_process.arrival_time = atoi( input_tokens[1].c_str() );
+                                     atoi( input_tokens[2].c_str() )*100 );
+  incoming_process.arrival_time = atoi( input_tokens[1].c_str() )*100;
 
   return incoming_process;
 }

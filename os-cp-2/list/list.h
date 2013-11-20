@@ -38,6 +38,7 @@ public:
   iterator        find( const T& );
   void            insert( const T&, unsigned );
   void            insert_after( iterator, const T& );
+  void            sort();
   bool            erase_one( const T& );
   unsigned        erase( const T& );
   void            clear();
@@ -144,6 +145,8 @@ void fw_list<T>::pop_front() {
   head = head->f_link;
   if( head != 0 ) {
     head->b_link = 0;
+  } else {
+    tail = 0;
   }
   delete toDel;
   -- used;
@@ -168,6 +171,8 @@ void fw_list<T>::pop_back() {
   tail = tail->b_link;
   if( tail != 0 ) {
     tail->f_link = 0;
+  } else {
+    head = 0;
   }
   delete toDel;
   -- used;
@@ -223,6 +228,41 @@ void fw_list<T>::insert_after( iterator it, const T& data ) {
     it->f_link = temp;
   }
   ++ used;
+}
+
+// This is terrible!
+template <typename T>
+void fw_list<T>::sort() {
+  if( used == 0 ) {
+    return;
+  }
+
+  unsigned temp_used = used;
+  T* arr = new T[temp_used];
+  node* n = head;
+  for( int i = 0; i < temp_used; ++ i ) {
+    arr[i] = n->data;
+    n = n->f_link;
+  }
+
+  for( int i = 0; i < temp_used; ++ i ) {
+    for( int j = 0; j < temp_used-1; ++ j ) {
+      if( arr[j+1] < arr[j] ) {
+        T temp = arr[j+1];
+        arr[j+1] = arr[j];
+        arr[j] = temp;
+      }
+    }
+  }
+
+  clear();
+
+  for( int i = 0; i < temp_used; ++ i ) {
+    push_back( arr[i] );
+  }
+
+  delete arr;
+
 }
 
 template <typename T>

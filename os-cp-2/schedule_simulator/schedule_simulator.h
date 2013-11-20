@@ -5,6 +5,7 @@
 #include "../schedule_strategy/schedule_factory.h"
 #include "process_arrival_simulator.h"
 #include "../virtual_cpu/virtual_cpu.h"
+#include "schedule_monitor.h"
 
 // Simulates processes running through a CPU scheduling algorithm
 class ScheduleSimulator

@@ -11,13 +11,15 @@
 #include "schedule_strategy/srtf.cpp"
 #include "schedule_simulator/input_file_parser.cpp"
 #include "schedule_simulator/process_arrival_simulator.cpp"
+#include "schedule_simulator/schedule_simulator.cpp"
+#include "schedule_simulator/schedule_monitor.cpp"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTest
 {
-  TEST_CLASS( test_VirtualPCB ) {
+  TEST_CLASS( TEST1_VirtualPCB ) {
 public:
 
   TEST_METHOD( construct_VirtualPCB ) {
@@ -30,7 +32,7 @@ public:
 
   };
 
-  TEST_CLASS( test_VirtualCPU ) {
+  TEST_CLASS( TEST2_VirtualCPU ) {
 public:
 
   TEST_METHOD( construction ) {
@@ -168,7 +170,7 @@ public:
 
   };
 
-  TEST_CLASS( TEST_List ) {
+  TEST_CLASS( TEST3_List ) {
 
     TEST_METHOD( construction ) {
       fw_list<int> f;
@@ -176,6 +178,15 @@ public:
 
     TEST_METHOD( back ) {
       fw_list<int> f;
+      f.push_back( 1 );
+      Assert::AreEqual( 1, f.back() );
+      f.push_back( 2 );
+      Assert::AreEqual( 2, f.back() );
+      Assert::AreEqual( 1, f.front() );
+      f.pop_back();
+      Assert::AreEqual( 1, f.back() );
+      f.pop_back();
+      Assert::AreEqual( (unsigned) 0, f.size() );
       f.push_back( 1 );
       Assert::AreEqual( 1, f.back() );
       f.push_back( 2 );
@@ -211,9 +222,40 @@ public:
       ++ it;
       Assert::IsTrue( f.end() == it );
     }
+
+    TEST_METHOD( sort ) {
+      fw_list<int> f;
+      f.push_front( 1 );
+      f.push_front( 2 );
+      f.push_front( 1 );
+      f.push_front( 5 );
+      f.push_front( 1 );
+      f.push_front( 4 );
+      f.push_front( 1 );
+      f.push_front( 100 );
+      f.sort();
+      fw_list<int>::iterator it = f.begin();
+      Assert::AreEqual( 1, it->data );
+      ++ it;
+      Assert::AreEqual( 1, it->data );
+      ++ it;
+      Assert::AreEqual( 1, it->data );
+      ++ it;
+      Assert::AreEqual( 1, it->data );
+      ++ it;
+      Assert::AreEqual( 2, it->data );
+      ++ it;
+      Assert::AreEqual( 4, it->data );
+      ++ it;
+      Assert::AreEqual( 5, it->data );
+      ++ it;
+      Assert::AreEqual( 100, it->data );
+      ++ it;
+      Assert::IsTrue( f.end() == it );
+    }
   };
 
-  TEST_CLASS( TEST_ScheduleStrategy ) {
+  TEST_CLASS( TEST4_ScheduleStrategy ) {
 
     TEST_METHOD( construct_FCFS_Schedule ) {
       FCFS_Schedule fcfs;
@@ -229,7 +271,7 @@ public:
 
   };
 
-  TEST_CLASS( TEST_ScheduleFactory ) {
+  TEST_CLASS( TEST5_ScheduleFactory ) {
 
     TEST_METHOD( singleton_constructor ) {
       ScheduleFactory* factory1 = ScheduleFactory::INSTANCE();
@@ -261,7 +303,7 @@ public:
     }
   };
 
-  TEST_CLASS( TEST_InputFileParser ) {
+  TEST_CLASS( TEST6_InputFileParser ) {
     TEST_METHOD( construction ) {
       std::fstream file( "../os-cp-2/input/input10.dat" );
       InputFileParser parser( &file );
@@ -274,29 +316,114 @@ public:
 
       IncomingProcess ip = parser.next_process();
       Assert::AreEqual( (PROCESS_ID) 1, ip.pcb.pid );
-      Assert::AreEqual( (SYSTEM_TIME) 1, ip.pcb.burst_time );
+      Assert::AreEqual( (SYSTEM_TIME) 100, ip.pcb.burst_time );
       Assert::AreEqual( (SYSTEM_TIME) 0, ip.arrival_time );
 
       ip = parser.next_process();
       Assert::AreEqual( (PROCESS_ID) 2, ip.pcb.pid );
-      Assert::AreEqual( (SYSTEM_TIME) 7, ip.pcb.burst_time );
-      Assert::AreEqual( (SYSTEM_TIME) 2, ip.arrival_time );
+      Assert::AreEqual( (SYSTEM_TIME) 700, ip.pcb.burst_time );
+      Assert::AreEqual( (SYSTEM_TIME) 200, ip.arrival_time );
 
       ip = parser.next_process();
       Assert::AreEqual( (PROCESS_ID) 3, ip.pcb.pid );
-      Assert::AreEqual( (SYSTEM_TIME) 6, ip.pcb.burst_time );
-      Assert::AreEqual( (SYSTEM_TIME) 3, ip.arrival_time );
+      Assert::AreEqual( (SYSTEM_TIME) 600, ip.pcb.burst_time );
+      Assert::AreEqual( (SYSTEM_TIME) 300, ip.arrival_time );
 
       // if infinite loop this is broken!
       while( !parser.complete() ) {
-        parser.next_process();
+        try {
+          parser.next_process();
+        } catch( std::exception e ) {
+          break;
+        }
       }
     }
   };
 
-  TEST_CLASS( TEST_ProcessArrivalSimulator ) {
+  TEST_CLASS( TEST7_ProcessArrivalSimulator ) {
     TEST_METHOD( construction ) {
       ProcessArrivalSimulator p;
     }
+
+    TEST_METHOD( parse_processes ) {
+      ProcessArrivalSimulator parser;
+      std::fstream file( "../os-cp-2/input/input10.dat" );
+      parser.parse_file( &file );
+
+      IncomingProcess ip = parser.next_process();
+      Assert::AreEqual( (PROCESS_ID) 1, ip.pcb.pid );
+      Assert::AreEqual( (SYSTEM_TIME) 100, ip.pcb.burst_time );
+      Assert::AreEqual( (SYSTEM_TIME) 0, ip.arrival_time );
+
+      ip = parser.next_process();
+      Assert::AreEqual( (PROCESS_ID) 2, ip.pcb.pid );
+      Assert::AreEqual( (SYSTEM_TIME) 700, ip.pcb.burst_time );
+      Assert::AreEqual( (SYSTEM_TIME) 200, ip.arrival_time );
+
+      ip = parser.next_process();
+      Assert::AreEqual( (PROCESS_ID) 3, ip.pcb.pid );
+      Assert::AreEqual( (SYSTEM_TIME) 600, ip.pcb.burst_time );
+      Assert::AreEqual( (SYSTEM_TIME) 300, ip.arrival_time );
+
+      // if infinite loop this is broken!
+      while( !parser.size() ) {
+        parser.next_process();
+      }
+    }
+
+    TEST_METHOD( process_ready ) {
+      ProcessArrivalSimulator parser;
+      std::fstream file( "../os-cp-2/input/input10.dat" );
+      parser.parse_file( &file );
+      Assert::IsTrue( parser.process_ready( 0 ) );
+      parser.next_process();
+      Assert::IsFalse( parser.process_ready( 100 ) );
+      Assert::IsTrue( parser.process_ready( 200 ) );
+      parser.next_process();
+      Assert::IsFalse( parser.process_ready( 200 ) );
+      Assert::IsFalse( parser.process_ready( 250 ) );
+      Assert::IsFalse( parser.process_ready( 299 ) );
+      Assert::IsTrue( parser.process_ready( 300 ) );
+      parser.next_process();
+      Assert::IsFalse( parser.process_ready( 299 ) );
+      Assert::IsFalse( parser.process_ready( 300 ) );
+      Assert::IsFalse( parser.process_ready( 301 ) );
+      Assert::IsTrue( parser.process_ready( 10000 ) );
+      while( parser.size() ) {
+        parser.next_process();
+      }
+      Assert::IsFalse( parser.process_ready( 100000000 ) );
+    }
+  };
+
+  TEST_CLASS( TEST8_SIMULATOR ) {
+    TEST_METHOD( construction_FCFS ) {
+      std::fstream file( "../os-cp-2/input/input10.dat" );
+      ScheduleSimulator s( &file, ScheduleType::FCFS );
+    }
+
+    TEST_METHOD( run_FCFS ) {
+      std::fstream file( "../os-cp-2/input/input10.dat" );
+      ScheduleSimulator s( &file, ScheduleType::FCFS );
+      s.run();
+    }
+
+    TEST_METHOD( construction_RR ) {
+      std::fstream file( "../os-cp-2/input/input10.dat" );
+      ScheduleSimulator s( &file, ScheduleType::RR, 1000 );
+    }
+
+    TEST_METHOD( construction_SRTF ) {
+      std::fstream file( "../os-cp-2/input/input10.dat" );
+      ScheduleSimulator s( &file, ScheduleType::SRTF );
+    }
+  };
+
+  TEST_CLASS( TEST9_MONITOR ) {
+
+  };
+
+  TEST_CLASS( TEST10_IMPLEMENTATION ) {
+
   };
 }
