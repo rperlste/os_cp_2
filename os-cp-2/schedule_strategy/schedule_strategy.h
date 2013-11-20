@@ -23,16 +23,12 @@ protected:
   fw_list<VirtualPCB>     queue;
 };
 
-typedef ScheduleStrategy* ( __stdcall *CreateSchedule )( void );
-
 
 /////////////////////////////////////////////////////////////////////////////////
 class FCFS_Schedule : public ScheduleStrategy
 {
 public:
   void     execute_burst( VirtualCPU& cpu, ScheduleMonitor& monitor );
-
-  static ScheduleStrategy* __stdcall create() { return new FCFS_Schedule(); }
 };
 
 
@@ -44,8 +40,6 @@ public:
   void     execute_burst( VirtualCPU& cpu, ScheduleMonitor& monitor );
 
   SYSTEM_TIME remaining_time;
-
-  static ScheduleStrategy* __stdcall create() { return new RR_Schedule(); }
 };
 
 
@@ -56,8 +50,6 @@ public:
   void            add( const VirtualPCB& );
   void            sort();
   void     execute_burst( VirtualCPU& cpu, ScheduleMonitor& monitor );
-
-  static ScheduleStrategy* __stdcall create() { return new SRTF_Schedule(); }
 };
 
 #endif

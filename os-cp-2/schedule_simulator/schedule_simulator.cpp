@@ -11,6 +11,7 @@ ScheduleSimulator::ScheduleSimulator( std::fstream* file,
   if( schedule_type == RR ) {
     scheduler->time_quanta = time_quanta*MILLISECOND;
   }
+  monitor.set_quanta( time_quanta );
 }
 
 ScheduleSimulator::~ScheduleSimulator() {

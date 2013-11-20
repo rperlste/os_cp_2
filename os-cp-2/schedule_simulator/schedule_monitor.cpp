@@ -53,10 +53,12 @@ std::string ScheduleMonitor::print_results() {
   std::stringstream ss;
   ss << "*******************************************************************************\n";
   if( schedule_type == RR ) {
-    ss << "**** Scheduling Algorithm: " + ScheduleTypeValues[schedule_type] + "Time Quanta: " + +" ****\n";
+    ss << "**** Scheduling Algorithm: " << ScheduleTypeValues[schedule_type] << " Time Quanta: " 
+	  << time_quanta << "\n";
   } else {
-    ss << "**** Scheduling Algorithm: " + ScheduleTypeValues[schedule_type] + " ****\n";
+    ss << "**** Scheduling Algorithm: " << ScheduleTypeValues[schedule_type] << "\n";
   }
+  ss << "**** Number of tasks: " << process_list.size() << "\n";
   ss << "*******************************************************************************\n";
   ss << "PID     Arrival       CPU     Finish    Waiting       Turn   Response   Context\n";
   ss << "           Time     Burst       Time       Time     Around       Time  Switches\n";
@@ -158,4 +160,8 @@ float ScheduleMonitor::process_burst_average() {
     total += it->data.pcb.burst_time;
   }
   return float( total )/( process_list.size()*MILLISECOND );
+}
+
+void ScheduleMonitor::set_quanta( SYSTEM_TIME quanta ){
+  time_quanta = quanta;
 }

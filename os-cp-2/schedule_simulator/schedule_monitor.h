@@ -13,6 +13,7 @@ class ScheduleMonitor {
 public:
   ScheduleMonitor();
   void              set_type( ScheduleType schedule_type );
+  void              set_quanta( SYSTEM_TIME quanta );
   void              add( const IncomingProcess& incoming_process );
   void              response( PROCESS_ID, SYSTEM_TIME );
   void              context_switch( PROCESS_ID );
@@ -27,6 +28,7 @@ private:
   fw_list<SYSTEM_TIME>        turnaround_times;
   unsigned                    context_switches;
   ScheduleType                schedule_type;
+  SYSTEM_TIME                 time_quanta;
 
   SYSTEM_TIME       turnaround_time( ProcessLifetime lifetime );
   SYSTEM_TIME       waiting_time( ProcessLifetime lifetime );
